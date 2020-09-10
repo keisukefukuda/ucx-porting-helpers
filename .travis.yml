@@ -1,0 +1,9 @@
+os: osx
+language: cpp
+compiler: clang
+
+script:
+    - echo "TRAVIS_OS_NAME=$TRAVIS_OS_NAME"
+    - env
+    - cd scripts/
+    - bash ./build_mac_ucx.bash
