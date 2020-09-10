@@ -1,16 +1,42 @@
 #!/bin/bash
+set -ue
+
+# Obtain the target UCX version
+UCX_VERSION=$(cat $(dirname $0)/../ucx_version.txt)
+
+# Make sure there's no uncomitted changes in ucx/ directory
+if [[ -d ucx ]]; then
+	cd ucx
+	if ! git diff-index --quiet HEAD -- ; then
+		# abort
+		echo "Error: There is uncomitted changes in ucx/ directory" >&2
+		git status
+		exit 1
+	fi
+	cd ..
+fi
 
 # First, clone UCX repository
 
-git clone https://github.com/openucx/ucx.git
+if [[ ! -d ucx ]]; then
+	git clone https://github.com/openucx/ucx.git
+fi
 cd ucx
+git fetch origin
+git clean -xfd
+git checkout $UCX_VERSION
+git pull origin $UCX_VERSION
+
 
 # Fetch a set of patches from our fork
 BRANCH_NAME="mac-os-build"
-git remote add hiroyuki-sato https://github.com/hiroyuki-sato/ucx
+if ! git remote show | grep hiroyuki-sato >/dev/null; then
+	git remote add hiroyuki-sato https://github.com/hiroyuki-sato/ucx
+fi
 git fetch hiroyuki-sato
 
 # Create a new branch to build on MacOS
+git branch -D $BRANCH_NAME
 git checkout -b $BRANCH_NAME
 
 # Apply all patches.
@@ -31,7 +57,9 @@ done
 git merge --no-ff --no-edit hiroyuki-sato/macos/disable-shm_remap-temp
 
 # Download & build dependency
-git clone https://github.com/ARM-software/progress64
+if [[ ! -d progress64 ]]; then
+	git clone https://github.com/ARM-software/progress64
+fi
 cd progress64; make all; cd ..
 
 # build ucx
