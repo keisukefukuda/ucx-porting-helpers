@@ -1,0 +1,13 @@
+os: osx
+language: cpp
+compiler: clang
+
+before_install:
+    - if [ "$TRAVIS_OS_NAME" = "osx" ]; then brew install gnu-sed  ; fi
+
+script:
+    - echo "TRAVIS_OS_NAME=$TRAVIS_OS_NAME"
+    - env
+    - echo
+    - cd scripts/
+    - bash ./build_mac_ucx.bash
