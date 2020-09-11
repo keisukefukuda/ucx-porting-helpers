@@ -1,0 +1,26 @@
+diff --git a/src/tools/perf/Makefile.am b/src/tools/perf/Makefile.am
+index 6850375fc..e21dfe6ca 100644
+--- a/src/tools/perf/Makefile.am
++++ b/src/tools/perf/Makefile.am
+@@ -16,7 +16,7 @@ bin_PROGRAMS          = ucx_perftest
+ ucx_perftest_SOURCES  = perftest.c
+ ucx_perftest_CPPFLAGS = $(BASE_CPPFLAGS) $(RTE_CPPFLAGS)
+ ucx_perftest_CFLAGS   = $(BASE_CFLAGS) $(OPENMP_CFLAGS)
+-ucx_perftest_LDFLAGS  = $(RTE_LDFLAGS) -Wl,-dynamic-list-data
++ucx_perftest_LDFLAGS  = $(RTE_LDFLAGS)
+ ucx_perftest_LDADD    = \
+ 	$(abs_top_builddir)/src/uct/libuct.la \
+ 	$(abs_top_builddir)/src/ucp/libucp.la \
+diff --git a/test/gtest/Makefile.am b/test/gtest/Makefile.am
+index 5652690b8..e32164c8d 100644
+--- a/test/gtest/Makefile.am
++++ b/test/gtest/Makefile.am
+@@ -62,7 +62,7 @@ gtest_CPPFLAGS = \
+ 	$(GTEST_CPPFLAGS) \
+ 	$(OPENMP_CFLAGS)
+ 
+-gtest_LDFLAGS  = $(GTEST_LDFLAGS) -no-install -Wl,-dynamic-list-data
++gtest_LDFLAGS  = $(GTEST_LDFLAGS) -no-install
+ gtest_CFLAGS   = $(BASE_CFLAGS)
+ gtest_CXXFLAGS = \
+ 	$(BASE_CXXFLAGS) $(GTEST_CXXFLAGS) \
