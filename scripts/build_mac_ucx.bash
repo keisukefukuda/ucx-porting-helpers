@@ -70,6 +70,7 @@ fi
 cd progress64; make all; cd ..
 
 patch -p1 <../001_remove_dynamic_list_data.patch
+patch -p1 <../002_deactivate_sockaddr_test.patch
 
 # build ucx
 ./autogen.sh
@@ -77,6 +78,7 @@ patch -p1 <../001_remove_dynamic_list_data.patch
 #
 ./configure \
   --disable-numa \
+  --disable-profiling \
   --with-progress64=$PWD/progress64 \
   --disable-shared \
   --enable-gtest

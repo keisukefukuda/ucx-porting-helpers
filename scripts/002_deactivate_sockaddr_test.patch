@@ -1,0 +1,13 @@
+diff --git a/test/apps/sockaddr/Makefile.am b/test/apps/sockaddr/Makefile.am
+index 7ce7a019f..403976bcb 100644
+--- a/test/apps/sockaddr/Makefile.am
++++ b/test/apps/sockaddr/Makefile.am
+@@ -4,7 +4,7 @@
+ # See file LICENSE for terms.
+ #
+ 
+-noinst_PROGRAMS = sa
++noinst_PROGRAMS = # sa
+ 
+ noinst_HEADERS = \
+ 	sa_base.h \
