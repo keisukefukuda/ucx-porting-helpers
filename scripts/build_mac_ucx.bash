@@ -36,8 +36,15 @@ fi
 git fetch hiroyuki-sato
 
 # Create a new branch to build on MacOS
-git branch -D $BRANCH_NAME
+git branch -D $BRANCH_NAME || :
 git checkout -b $BRANCH_NAME
+echo ""
+echo "***********************************************************************"
+echo "*"
+echo "* Base commit"
+echo "*"
+git log -n 1 | awk '{ print "* "$0 }'
+echo "***********************************************************************"
 
 # Apply all patches.
 for branch in $( git branch -a | grep remotes/hiroyuki-sato/macos/0 | \
