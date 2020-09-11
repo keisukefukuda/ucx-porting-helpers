@@ -102,7 +102,7 @@ for TARGET in $TARGETS ; do
   echo "* BUILD $TARGET"
   echo "****************************************"
   echo ""
-  make SED=gsed -C $TARGET
+  make ${MAKE_OPTS:-} SED=gsed -C $TARGET
 done
 
 ./src/tools/info/ucx_info -c
