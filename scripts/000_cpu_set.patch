@@ -1,0 +1,15 @@
+diff --git a/src/tools/perf/perftest.c b/src/tools/perf/perftest.c
+index 152df3dd7..01ff1c19f 100644
+--- a/src/tools/perf/perftest.c
++++ b/src/tools/perf/perftest.c
+@@ -12,6 +12,10 @@
+ #  include "config.h"
+ #endif
+ 
++#define CPU_SET(a, b) (void)a, (void)b;
++#define CPU_SETSIZE (1)
++#define CPU_ISSET(a, b) (1)
++
+ #include "api/libperf.h"
+ #include "lib/libperf_int.h"
+

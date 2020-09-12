@@ -75,12 +75,14 @@ cd progress64; make all; cd ..
 #
 ./configure \
   --disable-numa \
-  --with-progress64=$PWD/progress64 \
-  --disable-shared
+  --with-progress64=$PWD/progress64
 
 # We need some more patches...
 
 gsed -i.bak 's/UCM_MODULE_LDFLAGS =/UCM_MODULE_LDFLAGS =#/' src/ucm/Makefile
+gsed -i.bak -e '/archive_cmds=/ s/-install_name [^ ]* //' libtool
+
+patch -p1 <../000_cpu_set.patch
 
 
 #
@@ -102,53 +104,9 @@ for TARGET in $TARGETS ; do
   echo "* BUILD $TARGET"
   echo "****************************************"
   echo ""
-  make ${MAKE_OPTS:-} SED=gsed -C $TARGET
+  make V=1 ${MAKE_OPTS:-} SED=gsed -C $TARGET
 done
 
-./src/tools/info/ucx_info -c
-
-#$ ./src/tools/info/ucx_info -c
-#UCX_NET_DEVICES=all
-#UCX_SHM_DEVICES=all
-#UCX_ACC_DEVICES=all
-#UCX_SELF_DEVICES=all
-#UCX_TLS=all
-#UCX_ALLOC_PRIO=md:sysv,md:posix,huge,thp,md:*,mmap,heap
-#UCX_SOCKADDR_TLS_PRIORITY=rdmacm,tcp,sockcm
-#UCX_SOCKADDR_AUX_TLS=ud
-#UCX_WARN_INVALID_CONFIG=y
-#UCX_BCOPY_THRESH=0
-#UCX_RNDV_THRESH=auto
-#UCX_RNDV_SEND_NBR_THRESH=256K
-#UCX_RNDV_THRESH_FALLBACK=inf
-#UCX_RNDV_PERF_DIFF=1.000
-#UCX_MULTI_LANE_MAX_RATIO=10.000
-#UCX_MAX_EAGER_RAILS=1
-#UCX_MAX_RNDV_RAILS=2
-#UCX_RNDV_SCHEME=auto
-#UCX_RKEY_PTR_SEG_SIZE=512K
-#UCX_ZCOPY_THRESH=auto
-#UCX_BCOPY_BW=auto
-#UCX_ATOMIC_MODE=guess
-#UCX_ADDRESS_DEBUG_INFO=n
-#UCX_MAX_WORKER_NAME=32
-#UCX_USE_MT_MUTEX=n
-#UCX_ADAPTIVE_PROGRESS=y
-#UCX_SEG_SIZE=8K
-#UCX_TM_THRESH=1K
-#UCX_TM_MAX_BB_SIZE=1K
-#UCX_TM_FORCE_THRESH=8K
-#UCX_TM_SW_RNDV=n
-#UCX_NUM_EPS=auto
-#UCX_NUM_PPN=auto
-#UCX_RNDV_FRAG_SIZE=512K
-#UCX_RNDV_PIPELINE_SEND_THRESH=inf
-#UCX_MEMTYPE_CACHE=y
-#UCX_FLUSH_WORKER_EPS=y
-#UCX_UNIFIED_MODE=n
-#UCX_SOCKADDR_CM_ENABLE=n
-#UCX_LISTENER_BACKLOG=auto
-#UCX_PROTO_ENABLE=n
-#UCX_PROTO_INDIRECT_ID=auto
+# ./src/tools/info/ucx_info -c
 
 
