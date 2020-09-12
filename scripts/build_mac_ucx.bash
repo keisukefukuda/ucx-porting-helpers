@@ -107,5 +107,6 @@ for TARGET in $TARGETS ; do
   make V=1 ${MAKE_OPTS:-} SED=gsed -C $TARGET
 done
 
-./src/tools/info/ucx_info -c
+# ./src/tools/info/ucx_info -c
+
 
