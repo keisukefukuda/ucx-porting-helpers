@@ -77,6 +77,7 @@ cd progress64; make all; cd ..
 #
 ./configure \
   --disable-numa \
+  --enable-debug \
   --with-progress64=$PWD/progress64
 
 # We need some more patches...
