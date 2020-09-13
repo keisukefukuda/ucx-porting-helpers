@@ -1,8 +1,10 @@
 #!/bin/bash
 set -ue
 
+PROJ_ROOT_DIR=$(cd $(dirname $0)/..; pwd)
+
 # Obtain the target UCX version
-UCX_VERSION=$(cat $(dirname $0)/../ucx_version.txt)
+UCX_VERSION=$(cat $PROJ_ROOT_DIR/ucx_version.txt)
 
 # Make sure there's no uncomitted changes in ucx/ directory
 if [[ -d ucx ]]; then
@@ -81,7 +83,7 @@ cd progress64; make all; cd ..
 
 gsed -i.bak -e '/archive_cmds=/ s/-install_name [^ ]* //' libtool
 
-patch -p1 <../000_cpu_set.patch
+patch -p1 <$PROJ_ROOT_DIR/scripts/000_cpu_set.patch
 
 
 #
