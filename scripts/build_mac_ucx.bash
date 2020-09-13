@@ -79,7 +79,6 @@ cd progress64; make all; cd ..
 
 # We need some more patches...
 
-gsed -i.bak 's/UCM_MODULE_LDFLAGS =/UCM_MODULE_LDFLAGS =#/' src/ucm/Makefile
 gsed -i.bak -e '/archive_cmds=/ s/-install_name [^ ]* //' libtool
 
 patch -p1 <../000_cpu_set.patch
