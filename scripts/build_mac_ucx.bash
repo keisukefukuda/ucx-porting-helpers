@@ -63,8 +63,6 @@ for branch in $( git branch -a | grep remotes/hiroyuki-sato/macos/0 | \
   git merge --no-ff --no-edit "$merge_branch"
 done
 
-git merge --no-ff --no-edit hiroyuki-sato/macos/disable-shm_remap-temp
-
 # Download & build dependency
 if [[ ! -d progress64 ]]; then
 	git clone https://github.com/ARM-software/progress64
