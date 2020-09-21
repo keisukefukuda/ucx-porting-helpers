@@ -82,9 +82,6 @@ cd progress64; make all; cd ..
 
 gsed -i.bak -e '/archive_cmds=/ s/-install_name [^ ]* //' libtool
 
-patch -p1 <$PROJ_ROOT_DIR/scripts/000_cpu_set.patch
-
-
 #
 # For skipping some sub directory like src/tools/perf,
 # execute make one by one.
